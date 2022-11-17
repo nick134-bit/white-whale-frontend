@@ -20,6 +20,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import { formatPrice } from 'libs/num'
 
 import Loader from '../../Loader'
@@ -27,6 +28,8 @@ import Apr from './components/Apr'
 import PoolName from './components/PoolName'
 import Volume from './components/Volume'
 import { Pool } from './types'
+
+dayjs.extend(utc)
 
 const columnHelper = createColumnHelper<Pool>()
 
@@ -48,7 +51,10 @@ const columns = [
       </Text>
     ),
     cell: (info) => {
-      const dateTime = dayjs().startOf('day').format('YYYY-MM-DDTHH:mm:ss')
+      const dateTime = dayjs()
+        .utc()
+        .startOf('day')
+        .format('YYYY-MM-DDTHH:mm:ss')
       return (
         <Apr
           pair={info?.row?.original?.contract}
@@ -65,7 +71,10 @@ const columns = [
       </Text>
     ),
     cell: (info) => {
-      const dateTime = dayjs().startOf('day').format('YYYY-MM-DDTHH:mm:ss')
+      const dateTime = dayjs()
+        .utc()
+        .startOf('day')
+        .format('YYYY-MM-DDTHH:mm:ss')
       return <Volume pair={info?.row?.original?.contract} dateTime={dateTime} />
     },
   }),
