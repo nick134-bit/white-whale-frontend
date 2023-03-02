@@ -202,7 +202,7 @@ export const useQueryMultiplePoolsLiquidity = ({
 
   return useQueries(
     (pools ?? []).map((pool) => ({
-      queryKey: `@pool-liquidity/${pool.pool_id}/${address}`,
+      queryKey: [`@pool-liquidity/${pool.pool_id}/${address}`],
       enabled: Boolean(!!client && pool.pool_id && enabledGetTokenDollarValue),
       refetchOnMount: false as const,
       refetchInterval: refetchInBackground
